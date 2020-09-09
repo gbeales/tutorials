@@ -1,3 +1,15 @@
+# VS code/environment data
+.vscode/
+
+# example locations
+panel-examples/
+
+
+
+
+## Git-provided python ignore file below
+
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
