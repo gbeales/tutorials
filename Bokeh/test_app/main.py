@@ -26,16 +26,16 @@ img_fig = figure(
 
 
 input_test_img = img.imread("Bokeh//test_app//static//frame(30)_1.bmp")
-input_test_img = np.asarray(
-        np.flipud(
-            np.stack(
+input_test_img = np.ascontiguousarray(
+            np.flipud(
+                np.stack(
                 (input_test_img[..., 0], input_test_img[...,1],
                     input_test_img[..., 2], np.ones_like(input_test_img[...,0])*255),
                 axis=-1
                 )
             ),
-            order='C'
-).view(dtype=np.uint32).reshape((input_test_img.shape[0], input_test_img.shape[1]))
+            dtype=np.uint8
+        ).view(dtype=np.uint32).reshape((input_test_img.shape[0], input_test_img.shape[1]))
 
 
 # create data sources
@@ -73,7 +73,7 @@ def add_image(img_loc, CDS: ColumnDataSource, filename: str):
 
     input_img = img.imread(filename)
     os.remove(filename)
-    input_img = np.asarray(
+    input_img = np.ascontiguousarray(
         np.flipud(
             np.stack(
                 (input_img[..., 0], input_img[...,1],
@@ -81,7 +81,7 @@ def add_image(img_loc, CDS: ColumnDataSource, filename: str):
                 axis=-1
                 )
             ),
-            order='C'
+            dtype=np.uint8
     ).view(dtype=np.uint32).reshape((input_img.shape[0], input_img.shape[1]))
 
     # append to CDS 
