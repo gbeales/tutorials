@@ -28,18 +28,25 @@ from bokeh.plotting import figure
 import numpy as np
 
 def prep_img(image):
-    image = np.stack(
-        (image[..., 0], image[..., 1], image[..., 2], np.ones_like(image[:,:,0])*255),
-        axis=-1
-        )
-    return np.flipud(image)    # because Bokeh made poor choices
+    image = np.flipud(
+        np.stack(
+            (image[..., 0], image[..., 1], image[..., 2], np.ones_like(image[:,:,0])*255),
+            axis=-1
+            )
+    )
+    image = np.asarray(image, order='C')
+    out = np.empty_like(image[:, :, 0], dtype=np.uint32)
+    outview = out.view(dtype=np.uint8).reshape((image.shape[0], image.shape[1], 4))
+    outview=image
+    
+    return image.view(dtype=np.uint32).reshape((image.shape[0], image.shape[1]))   # because Bokeh made poor choices
 
 
 input_img = prep_img(
-    img.imread("C:\\Users\\gbeales\\Downloads\\frame(0)_2.bmp")
+    img.imread("Bokeh\\test_app\\static\\frame(30)_1.bmp")
     )
 input_img2 = prep_img(
-    img.imread("C:\\Users\\gbeales\\Downloads\\frame(0)_1.bmp")
+    img.imread("Bokeh\\test_app\\static\\Frame5_out.bmp")
     )
 data = {
     'image': [input_img, input_img2],
@@ -51,7 +58,7 @@ data = {
 source = ColumnDataSource(data=data)
 view = CDSView(source=source, filters=[IndexFilter([1])])
 p = figure(
-    plot_width=input_img.shape[1], plot_height=input_img.shape[0],
+    # plot_width=input_img.shape[1], plot_height=input_img.shape[0],
     x_range=(0, 10), y_range=(0, 10),
     tools="hover,pan,reset",
     toolbar_location='above')
@@ -73,7 +80,7 @@ slider.js_on_change("value", CustomJS(code="""
 from bokeh.plotting import output_file
 from bokeh.layouts import column
 
-output_file('testout.html')
+output_file('initial_testing.html')
 
 right_col = column([filepicker, button])
 left_col = column([p, slider])
