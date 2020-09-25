@@ -9,13 +9,14 @@ JavaScript\ Essential\ Training/
 
 
 
-## Git-provided python ignore file below
 
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
 *$py.class
+*.dll
+*.exe
 
 # C extensions
 *.so
@@ -36,6 +37,8 @@ var/
 wheels/
 pip-wheel-metadata/
 share/python-wheels/
+*.build/
+*.dist/
 *.egg-info/
 .installed.cfg
 *.egg
