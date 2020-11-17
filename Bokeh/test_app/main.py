@@ -22,7 +22,7 @@ img_fig = figure(
     x_range=(0, 10), y_range=(0, 10),
     plot_width=400, plot_height=400,
     toolbar_location='above',
-    tools="hover, pan, reset, wheel_zoom, box_zoom",)
+    tools="hover, pan, reset, wheel_zoom, box_zoom")
 
 
 input_test_img = img.imread("Bokeh//test_app//static//frame(30)_1.bmp")
