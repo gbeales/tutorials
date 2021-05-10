@@ -7,4 +7,6 @@ dependencies:
  - scipy
  - jupyter
  - tqdm
+ - matplotlib
  - pytorch::pytorch
+ - torchvision::pytorch
